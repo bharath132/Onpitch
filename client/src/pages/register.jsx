@@ -17,13 +17,12 @@ export default function Register() {
     e.preventDefault();
     if (password !== confirmPassword) {
       setError("Passwords do not match");
-      toast.error("Passwords do not match");
       return;
     }
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       toast.success("Registration successful!");
-      navigate("/"); // Redirect to home page after successful registration
+      navigate("/login"); // Redirect to home page after successful registration
     } catch (err) {
       setError(err.message);
       toast.error(err.message);

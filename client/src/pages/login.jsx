@@ -1,29 +1,43 @@
 import React, { useState } from "react";
 import { Mail, Lock, LogIn, ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+import {signInWithPopup  } from "firebase/auth";
+import { auth , googleProvider} from "../firebaseConfig";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  
+  const navigate = useNavigate();
   const handleLogin = (e) => {
     e.preventDefault();
     // Simulating login functionality
     if (email && password) {
       console.log("Login attempt with:", email);
+      navigate("/home")
+      setError("")
       // Success message would go here
     } else {
       setError("Please enter both email and password");
     }
   };
 
-  const handleGoogleLogin = () => {
-    // Simulating Google login
-    console.log("Google login attempt");
-    // Success handling would go here
+  const handleGoogleSignup = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+      toast.success("Google signup successful!");
+      navigate("/");
+    } catch (err) {
+      setError(err.message);
+      toast.error(err.message);
+    }
   };
 
   return (
+    <>
+    <ToastContainer/>
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900">
       <div className="w-full max-w-md p-8 space-y-8 bg-gray-900 rounded-xl shadow-2xl border border-purple-500/20">
         <div className="text-center">
@@ -114,7 +128,7 @@ export default function Login() {
 
           <div className="mt-6">
             <button
-              onClick={handleGoogleLogin}
+              onClick={handleGoogleSignup}
               className="w-full flex items-center justify-center gap-3 py-3 px-4 border border-gray-700 rounded-lg bg-gray-800 hover:bg-gray-700 text-white transition-all duration-200"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -142,11 +156,12 @@ export default function Login() {
 
         <p className="mt-8 text-center text-sm text-gray-400">
           Don't have an account?{" "}
-          <a href="#" className="font-medium text-purple-400 hover:text-purple-300 flex items-center justify-center mt-1">
+          <a href="/register" className="font-medium text-purple-400 hover:text-purple-300 flex items-center justify-center mt-1">
             Sign up now <ArrowRight size={16} className="ml-1" />
           </a>
         </p>
       </div>
     </div>
+    </>
   );
 }
