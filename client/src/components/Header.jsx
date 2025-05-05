@@ -52,10 +52,10 @@ const Header = () => {
               Testimonials
             </a>
             <a 
-              href="#" 
-              className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-800 transition duration-150 animate-fade-in animate-delay-400"
+              href="/login" 
+              className="inline-flex items-center justify-center px-6 py-2 text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-800 transition duration-150 animate-fade-in animate-delay-400"
             >
-              Get Started
+              Log In
             </a>
           </nav>
           
