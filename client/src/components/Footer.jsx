@@ -1,6 +1,6 @@
 import React from 'react';
-import { Briefcase, Linkedin, Instagram, Mail, Phone } from 'lucide-react';
-
+import { Linkedin, Instagram, Mail, Phone } from 'lucide-react';
+import logo from '/logo.jpg'
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-gray-300">
@@ -9,7 +9,7 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="col-span-1">
             <div className="flex items-center mb-4">
-              <Briefcase className="h-8 w-8 text-purple-400" />
+            <img src={logo} alt="OnPitch Logo" className="h-8 w-8" />
               <span className="ml-2 text-xl font-bold text-white">OnPitch.in</span>
             </div>
             <p className="mb-4">
