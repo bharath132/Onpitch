@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Freemium",
+    "description": "Basic services are free, premium features cost money.",
+    "tags": ["B2C", "Subscription"]
+  },
+  {
+    "name": "Razor & Blade",
+    "description": "Sell a product cheap, make money on consumables.",
+    "tags": ["Product", "Recurring"]
+  },
+  {
+    "name": "Marketplace",
+    "description": "Connect buyers and sellers via a platform.",
+    "tags": ["Platform", "B2B", "B2C"]
+  }
+]

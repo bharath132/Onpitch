@@ -21,14 +21,12 @@ const About = () => {
               className="rounded-lg shadow-xl"
             />
           </div>
-          
           <div className="space-y-6">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">About OnPitch.in</h2>
             <p className="text-xl text-gray-700 mb-6">
               OnPitch.in empowers entrepreneurs by providing everything they need to turn ideas into thriving ventures. 
               Our comprehensive platform is designed to guide you through every step of your entrepreneurial journey.
             </p>
-            
             <div className="space-y-4">
               {benefits.map((benefit, index) => (
                 <div key={index} className="flex items-start">
@@ -41,8 +39,7 @@ const About = () => {
             <div className="pt-6">
               <a 
                 href="#" 
-                className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 transition duration-150"
-              >
+                className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 transition duration-150">
                 Learn More About Us
               </a>
             </div>

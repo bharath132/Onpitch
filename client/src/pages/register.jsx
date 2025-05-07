@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Mail, Lock, UserPlus, ArrowLeft, Shield } from "lucide-react";
+import Cookies from "js-cookie";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -20,9 +21,11 @@ export default function Register() {
       return;
     }
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const token = await userCredential.user.getIdToken();
+      Cookies.set("authToken", token, { expires: 7 }); // Set cookie for 7 days
       toast.success("Registration successful!");
-      navigate("/login"); // Redirect to home page after successful registration
+      navigate("/login");
     } catch (err) {
       setError(err.message);
       toast.error(err.message);
@@ -31,7 +34,9 @@ export default function Register() {
 
   const handleGoogleSignup = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider);
+      const token = await result.user.getIdToken();
+      Cookies.set("authToken", token, { expires: 7 }); // Set cookie for 7 days
       toast.success("Google signup successful!");
       navigate("/");
     } catch (err) {
