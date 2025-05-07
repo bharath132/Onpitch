@@ -170,13 +170,6 @@ const Header = () => {
             >
               Testimonials
             </a>
-            <a
-              href="#"
-              className="block mt-2 px-4 py-2 bg-black text-white text-center rounded-md hover:bg-gray-800 transition duration-150"
-              onClick={handleBusinessNavigatorClick}
-            >
-              Business Navigator
-            </a>
             {isAuthenticated ? (
               <button
                 onClick={handleLogout}
