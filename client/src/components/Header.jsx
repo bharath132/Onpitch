@@ -2,14 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import logo from '/logo.jpg';
 import { useNavigate } from 'react-router-dom';
-import { signOut } from 'firebase/auth';
+import { signOut ,onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
+import Cookies from 'js-cookie';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const isLoggedIn = true; // Replace with actual authentication logic
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
+  
+    useEffect(() => {
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        setIsAuthenticated(!!user);
+        console.log(isAuthenticated);
+        
+      });
+      return () => unsubscribe();
+    }, []);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,26 +39,25 @@ const Header = () => {
   };
 
     const user = auth.currentUser;
-  const handleLoginClick = () => {  
-    if (isLoggedIn) {
-      navigate('/business-model-navigator');
-    } else {
-      navigate('/login');
-    }
-  };
+
 
   const handleBusinessNavigatorClick = () => {
     navigate('/businessmodelnavigator');
   };
+  const handleLoginClick = async ()=>{
+    navigate('/login')
 
+  }
   const handleLogout = async () => {
+    navigate('/')
     try {
       await signOut(auth); // Sign out the user from Firebase
-      localStorage.removeItem("authToken"); // Example: Remove token from localStorage
-      sessionStorage.removeItem("authToken"); // Example: Remove token from sessionStorage
-
-      console.log("User logged out");
-      navigate("/"); // Redirect to home page after logout
+      Cookies.remove("authToken") // Example: Remove token from sessionStorage
+ // Example: Remove token from sessionStorage
+    navigate('/'); // Redirect to home page after logout
+    console.log("User logged out");
+      setIsAuthenticated(true)
+      
     } catch (error) {
       console.error("Error logging out: ", error);
     }
@@ -96,7 +106,7 @@ const Header = () => {
             >
               Testimonials
             </a>
-            {isLoggedIn ? (
+            {isAuthenticated ? (
               <>
                 <button
                   onClick={handleLogout}
@@ -167,7 +177,7 @@ const Header = () => {
             >
               Business Navigator
             </a>
-            {isLoggedIn ? (
+            {isAuthenticated ? (
               <button
                 onClick={handleLogout}
                 className="block mt-2 px-4 py-2 bg-purple-600 text-white text-center rounded-md hover:bg-purple-800 transition duration-150"

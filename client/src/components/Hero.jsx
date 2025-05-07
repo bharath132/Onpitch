@@ -1,6 +1,5 @@
 import React from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import Login from '../pages/login';
 const Hero = () => {
   return (
     <section className="relative min-h-screen pt-32 pb-24 bg-gradient-to-r from-gray-900 to-black text-white overflow-hidden">
